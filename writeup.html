@@ -339,6 +339,24 @@ try grd-250 project1 allocator.asm <em>other_files.asm</em>
 
     <h2>Tips and Tricks</h2>
     <p>
+        You will likely need to store metadata like chunk size somehow.
+        You might be tempted to store metadata right in front of the memory chunk,
+        but don't, since it will mess up the relative memory addresses required by
+        the print memory list command. Instead, consider storing the metadata outside
+        the arena.
+    </p>
+    <p>
+        Since we have at most 26 variables, we could have at most 43 memory chunks at a time 
+        (26 allocated chunks and 27 free chunks between the allocated chunks). This means we
+        have a static upper bound for the amount of space we need for metadata storage, which
+        means you can use an array to store metadata.
+    </p>
+    <p>
+        Avoid using a linked list since you do not have access to malloc and free (as you are implementing
+        them right now), which means it's nontrivial to add or remove an entry from a linked list. It is 
+        likely easiest to limit yourself to arrays in terms of data structures.
+    </p>
+    <p>
         The entry point to your program <strong>must</strong> be a global symbol
         named <code>main</code>, or else your program won't link correctly into
         a load module and the simulator will refuse to run it.
@@ -354,24 +372,12 @@ try grd-250 project1 allocator.asm <em>other_files.asm</em>
     </p>
     <p>
         Make intelligent use of functions - e.g., write functions for reading
-        input, writing output, reading/writing values from/to the grid, etc.
+        input, writing output, etc.
         If you write your output routines early, you can use them for debugging
         as you write the rest of your code.
 
     <p>
-        Test <span style="font-style: italic;">early </span>and <span style="font-style: italic;">often</span>. Test
-        functional units as
-        soon as they are written. This includes your puzzle reading function,
-        your square lookup and write functions, your change-position function,
-        etc.<br>
-        <!-- PAW
-<p>
-When you have a bug, <big><span style="color: rgb(255, 0, 0);">step
-line-by-line through your code using xspim (or pcspim)</span></big>!
-Almost every
-bug you have will become obvious once you step through it in a
-debugger. <br>
--->
+        Test <span style="font-style: italic;">early </span>and <span style="font-style: italic;">often</span>.
     <p>
         When you have a bug, use the simulator's built-in debugger to step
         through your code.
@@ -392,7 +398,7 @@ debugger. <br>
     <p>
         You can, if you wish, put all of the functions implementing your
         solution
-        in the <code>tents.asm</code> file.
+        in the <code>allocator.asm</code> file.
         However, just as in programming using high-level languages, good
         programming
         practice would be to separate out the parts of
@@ -406,7 +412,7 @@ debugger. <br>
         there is any differences between your output and ours.&nbsp;
     <p>
         <hr style="width: 100%; height: 2px;"><small style="font-style: italic;">Last
-            updated by paw - Oct 17, 2019</small><br>
+            updated by xs - March 17, 2026</small><br>
     <p>
 </body>
 
