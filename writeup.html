@@ -38,37 +38,22 @@ Section 01: Tuesday Feb. 12, 2013<br>
     scratch.<br>
 
     <h2>Overview</h2>
-    For this project you will be implementing a memory allocator in MIPS assembly. <br>
-    <br>
-    <div style="text-align: center;"><br>
-    </div>
-    The Tents puzzle
-    will be given to you as an ASCII text stream (which can be typed in on
-    the command line or redirected from a file). You will print out the
-    unsolved puzzle, then a solved version with all the tents placed.
-    <br>
-    <br>
-    For information about Tents puzzles, and how to solve them, go to
-    <a href="http://www.brainbashers.com/tents.asp">BrainBashers.com</a>.
-    or
-    <a href="https://puzzlegenius.org/tents/">puzzlegenius.org</a>.
-    &nbsp; <br>
-
-    <h2>Rules of Tents</h2>
-    You have a grid of squares, some of which contain trees. Your aim is to
-    place tents in some of the remaining squares, in such a way that the
-    following conditions are met:
+    For this project you will be implementing a memory allocator in MIPS assembly.
+    <h2>Memory Allocator</h2>
+    A memory allocator is a program that gives you memory. For example, in C,
+    you used malloc. Here, you will be implementing your own version of malloc
+    and free in MIPS assembly. The following conditions must be met:
     <ul>
-        <li>Each tree has exactly one tent attached to it.
-        <li>Each tent is attached to one tree (so there are as many tents as there
-            are trees).
-        <li>The numbers across the bottom and down the side tell you how many tents
-            are in the respective column or row.
-        <li>A tent can only be placed horizontally or vertically adjacent to a
-            tree.
-        <li>Tents are never adjacent to each other, neither vertically,
-            horizontally, nor diagonally.
-        <li>A tree might be next to two tents, but is only connected to one.
+        <li>Malloc must take in a single number (the number of bytes) and allocate
+            a continguous memory chunk of that size.
+        <li>Malloc must return NULL if it doesn't have enough memory to fulfill
+            the allocation request.
+        <li>Free must take in a pointer and freed memory must be available to be
+            allocated again.
+        <li>If you have multiple free chunks of memory touching each other, 
+            they must be coalesced into a single large memory chunk.
+        <li>You must have a print function that prints the list of allocated 
+            and free memory chunks.
     </ul>
 
     <h2>Input Specification</h2>
