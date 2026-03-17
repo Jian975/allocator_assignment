@@ -168,13 +168,13 @@
     <p>
         The memory list will be have one element per line, and each element will
         have the format:
-        <br>"[size={number}, allocated={1 for yes, 0 for no}, address={16 digit address relative to start of arena}]"<br>
+        <br>"[size={number}, allocated={1 for yes, 0 for no}, address={16 digit address relative to start of arena}]"<br><br>
         For example, if your arena size is 512 bytes, and you haven't made any allocations, the memory list will look like:
-        <br>"[size=512, allocated=0, address=0000000000000000]"<br>
+        <br>"[size=512, allocated=0, address=0000000000000000]"<br><br>
         The memory list will change as you allocate and free memory. For example, after
         allocating 4 bytes, your memory list will look like:
         <br>"[size=4, allocated=1, address=0000000000000000]"
-        <br>"[size=508, allocated=0, address=0000000000000004]"<br>
+        <br>"[size=508, allocated=0, address=0000000000000004]"<br><br>
         For more information, look at the example input and output files.
     </p>
     <h2>Algorithm</h2>
