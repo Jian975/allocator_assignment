@@ -221,6 +221,7 @@
 <a href="sample5_in.txt">sample5_in.txt</a>
 <a href="sample6_in.txt">sample6_in.txt</a>
 <a href="sample7_in.txt">sample7_in.txt</a>
+<a href="sample8_in.txt">sample8_in.txt</a>
 </pre>
                     </blockquote>
                 </td>
@@ -246,7 +247,7 @@
         input):<br>
     <blockquote>
         <pre>
-/home/fac/wrc/bin/rsim tents.out &lt; sample1_in.txt
+/home/fac/wrc/bin/rsim allocator.out &lt; sample1_in.txt
 </pre>
     </blockquote>
     <p>
@@ -258,7 +259,7 @@
         <br>
     <blockquote>
         <pre>
-/home/fac/wrc/bin/rsim tents.out &lt; sample1_in.txt &gt; myout1.out
+/home/fac/wrc/bin/rsim allocator.out &lt; sample1_in.txt &gt; myout1.out
 </pre>
     </blockquote>
     <p>
@@ -275,8 +276,9 @@
 <a href="sample3_out.txt">sample3_out.txt</a>
 <a href="sample4_out.txt">sample4_out.txt</a>
 <a href="sample5_out.txt">sample5_out.txt</a>
-<a href="sample6_out.txt">sample7_out.txt</a>
-<a href="sample7_out.txt">sample6_out.txt</a>
+<a href="sample6_out.txt">sample6_out.txt</a>
+<a href="sample7_out.txt">sample7_out.txt</a>
+<a href="sample8_out.txt">sample8_out.txt</a>
 </pre>
                     </blockquote>
                 </td>
@@ -316,39 +318,15 @@ vimdiff myout1.out sample1_out.txt
     </p>
 
     <h2>Submitting Your Code</h2>
-    <!-- PAW don't put due date in twice, error prone
-The project due date is Tuesday, Feb. 16, at 11:59:59pm. 
--->
     Submit your solution using the following command:<br>
     <blockquote>
         <pre>
-try grd-250 project1 tents.asm <em>other_files.asm</em>
+try grd-250 project1 allocator.asm <em>other_files.asm</em>
 </pre>
     </blockquote>
     <p>
         where <code><em>other_files.asm</em></code> includes any other assembly
         language source files containing parts of your solution.
-
-        <!-- PAW moved up to activities
-<p>
-Because the purpose of this project is for you to write a <span
- style="font-style: italic;">complete </span>assembly
-language program, from scratch, no starting materials will be made
-available to you. However, here is an input files to get you started.<br>
-<pre><a href="sample_input.txt">sample_input.txt</a></pre>
-<p>
-You can invoke your program on a data file by typing (using
-<span style="font-family: monospace;"> sample_input.txt</span> as an example
-input):<br>
-<blockquote><pre>
-/home/fac/wrc/bin/rsim tents.asm &lt; sample_input.txt
-</pre></blockquote>
-
-<p>
-This should produce the output found in:<br>
-<pre><a href="sample1.out">sample1.out</a></pre>
--->
-
     <h2>Grading</h2>
 
     <p>
