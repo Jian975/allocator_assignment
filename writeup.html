@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
-    <title>Comp. Org. Project</title>
+    <title>Allocator Project</title>
 </head>
 
 <body>
@@ -24,13 +24,6 @@
                     Late Submission (20% penalty): Thur. April 16<br>
             </big></big></div>
     <br>
-    <!--
-</span><span style="font-weight: bold; color: rgb(255, 0, 0);">
-Section 01: Tuesday Feb. 12, 2013<br>
-</span><br style="color: rgb(255, 0, 0);">
-</big></big></div>
-<br>
--->
     <hr style="width: 100%; height: 2px;"><br style="font-weight: bold;">
 
     <h2>Goals and Objectives</h2>
@@ -45,14 +38,19 @@ Section 01: Tuesday Feb. 12, 2013<br>
     and free in MIPS assembly. The following conditions must be met:
     <ul>
         <li>Malloc must take in a single number (the number of bytes) and allocate
-            a continguous memory chunk of that size.
+            a continguous memory chunk of the closest greater multiple of 4 size.
+            <ul>
+                <li>Malloc(4) returns a continguous memory chunk of size 4</li>
+                <li>Malloc(5) returns a continguous memory chunk of size 8</li>
+                <li>Malloc(7) returns a continguous memory chunk of size 8</li>
+            </ul>
         <li>Malloc must return NULL if it doesn't have enough memory to fulfill
             the allocation request.
         <li>Free must take in a pointer and freed memory must be available to be
             allocated again.
-        <li>If you have multiple free chunks of memory touching each other, 
+        <li>If you have multiple free chunks of memory touching each other,
             they must be coalesced into a single large memory chunk.
-        <li>You must have a print function that prints the list of allocated 
+        <li>You must have a print function that prints the list of allocated
             and free memory chunks.
     </ul>
 
@@ -61,32 +59,14 @@ Section 01: Tuesday Feb. 12, 2013<br>
     typing it in at the console).&nbsp;
     The Input will contain multiple lines of ascii text (strings) where each
     line may have a different meaning.
-    <p>
-        Note, we guarantee that each line will always have the correct number of
-        characters. We also guarantee that the number lines will only contain
-        digit characters. We in no way promise that the digits are in the
-        correct range, or that the characters are valid. Below we talk about
-        the "valid" values for each input.
-        <!--
-The input can be thought of as being broken up into a number of types
-(in actually the input just come in as a long stream of integers, you will
-just interpret different input differently based on what you are looking
-for next).  Note that you can assume all input values are integers, and
-you will be provided with correct number of inputs.  You
-can not assume the value of the inputs are correct.  Below you will find
-the definition of the inputs and the error that you will need to
-detect for each.
--->
-    <p>
     <table cellpadding="2" cellspacing="2">
         <tr>
             <td>
-                The first line entered will contain the board size
-                (we will call the board size "<b><i>n</i></b>" from this point on).
-                The legal range for the
-                size is between 2 and 12 inclusively. If the board size is not within
-                that range, your program
-                should print the following error message and terminate.
+                The first line entered will be a number representing the arena size.
+                The arena size is the number of bytes the allocator has to hand out.
+                The legal range for the arena size is between 4 and 1000, inclusive.
+                If the arena size is not within that range, your program should print
+                the following error message and terminate.
                 <p>
                 <ul>
                     <table style="text-align: left; width: 481px;" border="1" cellpadding="2" cellspacing="2">
@@ -96,7 +76,7 @@ detect for each.
                             <tr>
                                 <td style="vertical-align: top;">
                                     <font face="courier new">
-                                        Invalid board size, Tents terminating
+                                        Invalid arena size, allocator terminating.
                                     </font>
                                 </td>
                             </tr>
@@ -104,105 +84,37 @@ detect for each.
                     </table>
                 </ul>
                 <p>
-                    The next line contains a string made up of <b><i>n</i></b> digits.
-                    These will be used as
-                    the row sums (the number of tents that
-                    need to be placed in each row), entered from top to bottom.
-                    Note, that the value for a row sum will always be a single digit
-                    number, since
-                    the max board size is 12, and there can only be (size+1)/2 (integer
-                    division) tents in a
-                    single row (since tents can't be next to each other).
-                    So, while reading row sum values, the number of tents in a row
-                    must be between
-                    0 and (<b><i>n</i></b>+1)/2 inclusively, if not then your program
-                    should print the following error message and terminate.
-                    <!--
-If a tent count for a row is not within
-this range, then your program
-should print the following error message and terminate.
--->
-                <p>
+                    The following lines will be a sequence of commands, with one command
+                    per line. {variable} is a character from a-z (note we can have at most 26 variables).
+                    {number} represents a digit string. Here's the list of commands (the commands are guaranteed
+                    to be in this format):
                 <ul>
-                    <table style="text-align: left; width: 481px;" border="1" cellpadding="2" cellspacing="2">
-                        <caption align="bottom">Error message 2<br>
-                        </caption>
-                        <tbody>
-                            <tr>
-                                <td style="vertical-align: top;">
-                                    <font face="courier new">
-                                        Illegal sum value, Tents terminating
-                                    </font>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <li>m {variable} {number}</li>
+                    <ul>
+                        <li>m for malloc</li>
+                        <li>Allocate a memory chunk of {number} bytes and store it in {variable}</li>
+                    </ul>
+                    <li>f {variable}</li>
+                    <ul>
+                        <li>f for free</li>
+                        <li>Free {variable}</li>
+                    </ul>
+                    <li>p</li>
+                    <ul>
+                        <li>p for print</li>
+                        <li>Print the memory list</li>
+                    </ul>
+                    <li>g {variable}</li>
+                    <ul>
+                        <li>g for get</li>
+                        <li>Print the value of {variable} to STDOUT</li>
+                    </ul>
+                    <li>s {variable} {number}</li>
+                    <ul>
+                        <li>s for set</li>
+                        <li>Sets {variable}={number}</li>
+                    </ul>
                 </ul>
-                <p>
-                    The next line contains a string made up of <b><i>n</i></b> digits.
-                    These will be used as
-                    the column sums (the number of tents that
-                    need to be placed in each column), entered from left to right.
-                    Again note, as above, that these will all be single digit numbers.
-                    The number of tents must be between
-                    0 and (<b><i>n</i></b>+1)/2 inclusively.
-                    If a tent count for a column is not within
-                    this range, then your program
-                    should print <font face="courier new">Error message 2</font>
-                    above and terminate.
-                    <!--
-<p>
-The next value in the input will be the number of trees in the puzzle
-(we will call the number of trees "<b><i>c</i></b>" from this point on).  
-If the number of trees specified is less than 0, then your program
-should print the following error message and terminate.
-<p>
-<ul>
-  <table style="text-align: left; width: 481px;"
- border="1" cellpadding="2" cellspacing="2">
-    <caption align="bottom">Error message 3<br>
-    </caption>
-    <tbody>
-      <tr>
-        <td style="vertical-align: top;">
-          <font face="courier new">
-		Illegal number of trees, Tents terminating
-	  </font>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</ul>
--->
-                <p>
-                    The next <b><i>n</i></b> lines will contain the rows of the board.
-                    Each row will contain <b><i>n</i></b> characters, which make up the
-                    initial value for each square on the board. The only legal
-                    possibilities for initial squares are grass, which will be represented
-                    by a period character (<b><i>.</i></b>) and a tree which will be
-                    represented by a capital t (<b><i>T</i></b>)
-                    If the character is not one of these two values, then your program
-                    should print the following error message and terminate.
-                <p>
-                <ul>
-                    <table style="text-align: left; width: 481px;" border="1" cellpadding="2" cellspacing="2">
-                        <caption align="bottom">Error message 3<br>
-                        </caption>
-                        <tbody>
-                            <tr>
-                                <td style="vertical-align: top;">
-                                    <font face="courier new">
-                                        Illegal board character, Tents terminating
-                                    </font>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </ul>
-            </td>
-            <td>
-                <!-- PAW -->
-                <img src="input_explained.png" style="width: 450px">
             </td>
         </tr>
     </table>
