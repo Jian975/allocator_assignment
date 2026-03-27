@@ -1,0 +1,2 @@
+Initializing allocator with 512 bytes
+Freeing memory not from malloc

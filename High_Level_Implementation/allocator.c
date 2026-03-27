@@ -79,7 +79,8 @@ void * my_malloc(int size) {
     }
     //out of memory
     if (best_fit == -1) {
-        return NULL;
+        printf("Out of Memory\n");
+        exit(1);
     }
     //split memory block if necessary
     if (metadata[best_fit].size > size) {
@@ -97,12 +98,13 @@ void * my_malloc(int size) {
 
 void my_free(void * address) {
     if (address == NULL) {
-        return;
+        printf("Freeing memory not from malloc\n");
+        exit(1);
     }
     int8_t freed = find(address);
     if (freed == -1) {
-        printf("Error: Can't find address to free\n");
-        return;
+        printf("Freeing memory not from malloc\n");
+        exit(1);
     }
     char * char_address = address;
     for (int i = 0; i < metadata[freed].size; i++) {

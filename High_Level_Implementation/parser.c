@@ -11,8 +11,8 @@ void parse_malloc(char * s) {
     char * size_string = s + 4;
     int size = atoi(size_string);
 
-    printf("%c = malloc(%d)\n", name, size);
     void * allocated = my_malloc(size);
+    printf("%c = malloc(%d)\n", name, size);
 
     int index = name - 'a';
     variables[index] = allocated;
@@ -23,8 +23,8 @@ void parse_free(char * s) {
 
     int index = name - 'a';
     void * allocated = variables[index];
-    printf("free(%c)\n", name);
     my_free(allocated);
+    printf("free(%c)\n", name);
 }
 
 void parse_set(char * s) {
